@@ -1,0 +1,24 @@
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+import RealTimeLineChart from './components/Graphs/LineChart'
+import EnergyForecast from './components/EnergyForecast'
+import Dashboard from './components/DashBoard'
+import HomePage from './components/HomePage'
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <>
+     <div>
+    {/* <EnergyForecast/>
+    <Dashboard/> */}
+    <HomePage/>
+     </div>
+    </>
+  )
+}
+
+export default App
