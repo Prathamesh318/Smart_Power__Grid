@@ -76,3 +76,99 @@ python consumer/consumer.py
 Start the Flask backend:
 python main.py
 
+3. Frontend Setup
+
+cd ../Frontend/my-app
+npm install
+
+Start the frontend:
+npm run dev
+
+The app will be available at http://localhost:5173.
+
+```
+##🔑 Authentication
+Uses Google OAuth2 for login.
+After login, user info is stored in the backend session and PostgreSQL.
+Session is required for protected routes (dashboard, predictions, user list).
+
+📊 Main Pages
+/ — Home page, login button, features overview.
+/dashboard — Live grid metrics, anomaly status, prediction controls, charts.
+users — Admin view of all registered users.
+/prediction-history — Table of your past predictions.
+/graphs — Comparative radar chart of project vs. research papers.
+
+🛠️ Tech Stack
+Frontend: React, Vite, Tailwind CSS, Recharts, React Router
+Backend: Flask, flask-cors, requests-oauthlib, joblib, pandas, numpy, holidays, psycopg2-binary, kafka-python
+Database: PostgreSQL
+Streaming: Kafka (producer/consumer)
+WebSocket: websockets (Python)
+ML Model: RandomForestRegressor (or LSTM, as trained)
+Chatbot: HuggingFace Inference API (optional)
+
+🧑‍💻 Development Notes
+Environment variables must be set in .env (never commit secrets).
+Kafka must be running for real-time data.
+WebSocket server must be running for live dashboard updates.
+Frontend expects backend at http://localhost:5000 and WebSocket at ws://localhost:6789.
+CORS and credentials: "include" are required for session-based auth.
+
+
+📝 Database Schema (PostgreSQL)
+```sh
+CREATE TABLE users (
+    id VARCHAR PRIMARY KEY,
+    email VARCHAR UNIQUE,
+    name VARCHAR,
+    picture VARCHAR,
+    last_login TIMESTAMP
+);
+
+CREATE TABLE metrics (
+    id SERIAL PRIMARY KEY,
+    timestamp TIMESTAMP,
+    voltage FLOAT,
+    current FLOAT,
+    frequency FLOAT,
+    anomaly BOOLEAN,
+    user_id VARCHAR REFERENCES users(id)
+);
+
+CREATE TABLE predictions (
+    id SERIAL PRIMARY KEY,
+    user_id VARCHAR REFERENCES users(id),
+    date DATE,
+    predicted_energy_load FLOAT,
+    requested_at TIMESTAMP
+);
+
+CREATE TABLE power_grids (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR,
+    latitude FLOAT,
+    longitude FLOAT,
+    capacity FLOAT
+);
+```
+
+🧩 Extending the Project
+Add more analytics: Historical trends, anomaly heatmaps, etc.
+Role-based access: Restrict admin endpoints.
+Notifications: Email/SMS or browser push for anomalies.
+Map integration: Show grid locations on Google Maps.
+Dockerize: For easy deployment.
+
+🤝 Contributing
+Pull requests are welcome! Please open an issue first to discuss major changes.
+
+🙏 Acknowledgements
+React
+Flask
+Kafka
+Tailwind CSS
+Google Cloud
+HuggingFace
+
+
