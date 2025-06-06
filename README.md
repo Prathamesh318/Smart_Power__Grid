@@ -44,7 +44,7 @@ Smart_Power_Grid/ │ ├── Backend/ │ ├── main.py # Flask backend (
 ### 1. **Clone the Repository**
 
 ```sh
-git clone https://github.com/yourusername/Smart_Power_Grid.git
+git clone https://github.com/Prathamesh318/Smart_Power_Grid.git
 cd Smart_Power_Grid
 
 cd Backend
